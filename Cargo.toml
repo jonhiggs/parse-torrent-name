@@ -1,0 +1,8 @@
+[package]
+name = "parse-torrent-name-rust"
+version = "0.1.0"
+authors = ["Jon Higgs <jhiggs@eml.cc>"]
+
+[dependencies]
+structopt = "0.2"
+regex = "1"
