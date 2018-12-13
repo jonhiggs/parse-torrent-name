@@ -40,6 +40,14 @@ fn title(s: &str) -> Option<String> {
     }
 
     {
+        // everything before s05e03
+        let re = Regex::new(r"(.*)[ \.]s\d\de\d\d").unwrap();
+        for cap in re.captures_iter(&s) {
+            options.push(cap[1].to_string());
+        }
+    }
+
+    {
         // everything before 5x03
         let re = Regex::new(r"(.*)[ \.]\dx\d\d").unwrap();
         for cap in re.captures_iter(&s) {
@@ -241,16 +249,16 @@ mod tests {
         assert_eq!(Some(String::from("Brave")),                           title(&String::from("Brave.2012.R5.DVDRip.XViD.LiNE-UNiQUE")));
         assert_eq!(Some(String::from("Lets Be Cops")),                    title(&String::from("Lets.Be.Cops.2014.BRRip.XViD-juggs[ETRG]")));
         assert_eq!(Some(String::from("These Final Hours")),               title(&String::from("These.Final.Hours.2013.WBBRip XViD")));
-        assert_eq!(Some(String::from("Downton Abbey")), title(&String::from("Downton Abbey 5x06 HDTV x264-FoV [eztv]")));
-        //assert_eq!(Some(String::from("Annebelle")), title(&String::from("Annabelle.2014.HC.HDRip.XViD.AC3-juggs[ETRG]")));
+        assert_eq!(Some(String::from("Downton Abbey")),                   title(&String::from("Downton Abbey 5x06 HDTV x264-FoV [eztv]")));
+        assert_eq!(Some(String::from("Annabelle")),                       title(&String::from("Annabelle.2014.HC.HDRip.XViD.AC3-juggs[ETRG]")));
         assert_eq!(Some(String::from("Lucy")),                            title(&String::from("Lucy.2014.HC.HDRip.XViD-juggs[ETRG]")));
         assert_eq!(Some(String::from("The Flash")),                       title(&String::from("The Flash 2014 S01E04 HDTV x264-FUM[ettv]")));
         assert_eq!(Some(String::from("South Park")),                      title(&String::from("South Park S18E05 HDTV x264-KILLERS [eztv]")));
         assert_eq!(Some(String::from("The Flash")),                       title(&String::from("The Flash 2014 S01E03 HDTV x264-LOL[ettv]")));
         assert_eq!(Some(String::from("The Flash")),                       title(&String::from("The Flash 2014 S01E01 HDTV x264-LOL[ettv]")));
         assert_eq!(Some(String::from("Lucy")),                            title(&String::from("Lucy 2014 Dual-Audio WEBRip 1400Mb")));
-        //assert_eq!(Some(String::from("Teenage Mutant Ninja Turtles")), title(&String::from("Teenage Mutant Ninja Turtles (HdRip / 2014)")));
-        //assert_eq!(Some(String::from("Teenage Mutant Ninja Turtles")), title(&String::from("Teenage Mutant Ninja Turtles (unknown_release_type / 2014)")));
+        assert_eq!(Some(String::from("Teenage Mutant Ninja Turtles")),    title(&String::from("Teenage Mutant Ninja Turtles (HdRip / 2014)")));
+        assert_eq!(Some(String::from("Teenage Mutant Ninja Turtles")),    title(&String::from("Teenage Mutant Ninja Turtles (unknown_release_type / 2014)")));
         assert_eq!(Some(String::from("The Simpsons")),                    title(&String::from("The Simpsons S26E05 HDTV x264 PROPER-LOL [eztv]")));
         assert_eq!(Some(String::from("2047 - Sights of Death")),          title(&String::from("2047 - Sights of Death (2014) 720p BrRip x264 - YIFY")));
         assert_eq!(Some(String::from("Two and a Half Men")),              title(&String::from("Two and a Half Men S12E01 HDTV x264 REPACK-LOL [eztv]")));
@@ -266,37 +274,37 @@ mod tests {
         //assert_eq!(Some(String::from("")),                             title(&String::from("WWE Monday Night Raw 3rd Nov 2014 HDTV x264-Sir Paul")));
         //assert_eq!(Some(String::from("")), title(&String::from("WWE Monday Night Raw 2014 11 10 WS PDTV x264-RKOFAN1990 -={SPARR")));
         assert_eq!(Some(String::from("Jack And The Cuckoo-Clock Heart")), title(&String::from("Jack.And.The.Cuckoo-Clock.Heart.2013.BRRip XViD")));
-        assert_eq!(Some(String::from("WWE Hell in a Cell")), title(&String::from("WWE Hell in a Cell 2014 HDTV x264 SNHD")));
-        assert_eq!(Some(String::from("Dracula Untold")), title(&String::from("Dracula.Untold.2014.TS.XViD.AC3.MrSeeN-SiMPLE")));
-        //assert_eq!(Some(String::from("The Missing")), title(&String::from("The Missing 1x01 Pilot HDTV x264-FoV [eztv]")));
-        assert_eq!(Some(String::from("Doctor Who")), title(&String::from("Doctor.Who.2005.8x11.Dark.Water.720p.HDTV.x264-FoV[rartv]")));
-        assert_eq!(Some(String::from("Gotham")), title(&String::from("Gotham.S01E07.Penguins.Umbrella.WEB-DL.x264.AAC")));
-        assert_eq!(Some(String::from("One Shot")), title(&String::from("One Shot [2014] DVDRip XViD-ViCKY")));
-        assert_eq!(Some(String::from("The Shaukeens")), title(&String::from("The Shaukeens 2014 Hindi (1CD) DvDScr x264 AAC...Hon3y")));
-        assert_eq!(Some(String::from("The Shaukeens")), title(&String::from("The Shaukeens (2014) 1CD DvDScr Rip x264 [DDR]")));
-        assert_eq!(Some(String::from("Annabelle")), title(&String::from("Annabelle.2014.1080p.PROPER.HC.WEBRip.x264.AAC.2.0-RARBG")));
-        assert_eq!(Some(String::from("Interstellar")), title(&String::from("Interstellar (2014) CAM ENG x264 AAC-CPG")));
-        assert_eq!(Some(String::from("Guardians of the Galaxy")), title(&String::from("Guardians of the Galaxy (2014) Dual Audio DVDRip AVI")));
-        assert_eq!(Some(String::from("Eliza Graves")), title(&String::from("Eliza Graves (2014) Dual Audio WEB-DL 720p MKV x264")));
-        assert_eq!(Some(String::from("Sons of Anarchy")), title(&String::from("Sons.of.Anarchy.S01E03")));
+        assert_eq!(Some(String::from("WWE Hell in a Cell")),              title(&String::from("WWE Hell in a Cell 2014 HDTV x264 SNHD")));
+        assert_eq!(Some(String::from("Dracula Untold")),                  title(&String::from("Dracula.Untold.2014.TS.XViD.AC3.MrSeeN-SiMPLE")));
+        assert_eq!(Some(String::from("The Missing")),                     title(&String::from("The Missing 1x01 Pilot HDTV x264-FoV [eztv]")));
+        assert_eq!(Some(String::from("Doctor Who")),                      title(&String::from("Doctor.Who.2005.8x11.Dark.Water.720p.HDTV.x264-FoV[rartv]")));
+        assert_eq!(Some(String::from("Gotham")),                          title(&String::from("Gotham.S01E07.Penguins.Umbrella.WEB-DL.x264.AAC")));
+        assert_eq!(Some(String::from("One Shot")),                        title(&String::from("One Shot [2014] DVDRip XViD-ViCKY")));
+        assert_eq!(Some(String::from("The Shaukeens")),                   title(&String::from("The Shaukeens 2014 Hindi (1CD) DvDScr x264 AAC...Hon3y")));
+        assert_eq!(Some(String::from("The Shaukeens")),                   title(&String::from("The Shaukeens (2014) 1CD DvDScr Rip x264 [DDR]")));
+        assert_eq!(Some(String::from("Annabelle")),                       title(&String::from("Annabelle.2014.1080p.PROPER.HC.WEBRip.x264.AAC.2.0-RARBG")));
+        assert_eq!(Some(String::from("Interstellar")),                    title(&String::from("Interstellar (2014) CAM ENG x264 AAC-CPG")));
+        assert_eq!(Some(String::from("Guardians of the Galaxy")),         title(&String::from("Guardians of the Galaxy (2014) Dual Audio DVDRip AVI")));
+        assert_eq!(Some(String::from("Eliza Graves")),                    title(&String::from("Eliza Graves (2014) Dual Audio WEB-DL 720p MKV x264")));
+        assert_eq!(Some(String::from("Sons of Anarchy")),                 title(&String::from("Sons.of.Anarchy.S01E03")));
         //assert_eq!(Some(String::from("doctor who")), title(&String::from("doctor_who_2005.8x12.death_in_heaven.720p_hdtv_x264-fov")));
-        //assert_eq!(Some(String::from("breaking bad")), title(&String::from("breaking.bad.s01e01.720p.bluray.x264-reward")));
+        assert_eq!(Some(String::from("breaking bad")),                    title(&String::from("breaking.bad.s01e01.720p.bluray.x264-reward")));
         //assert_eq!(Some(String::from("Game of Thrones")), title(&String::from("Game of Thrones - 4x03 - Breaker of Chains")));
         //assert_eq!(Some(String::from("")), title(&String::from("[720pMkv.Com]_sons.of.anarchy.s05e10.480p.BluRay.x264-GAnGSteR")));
         //assert_eq!(Some(String::from("")), title(&String::from("[ www.Speed.cd ] -Sons.of.Anarchy.S07E07.720p.HDTV.X264-DIMENSION")));
-        //assert_eq!(Some(String::from("Community")), title(&String::from("Community.s02e20.rus.eng.720p.Kybik.v.Kybe")));
-        assert_eq!(Some(String::from("The Jungle Book")), title(&String::from("The.Jungle.Book.2016.3D.1080p.BRRip.SBS.x264.AAC-ETRG")));
-        assert_eq!(Some(String::from("Ant-Man")), title(&String::from("Ant-Man.2015.3D.1080p.BRRip.Half-SBS.x264.AAC-m2g")));
-        assert_eq!(Some(String::from("Ice Age Collision Course")), title(&String::from("Ice.Age.Collision.Course.2016.READNFO.720p.HDRIP.X264.AC3.TiTAN")));
-        assert_eq!(Some(String::from("Red Sonja Queen Of Plagues")), title(&String::from("Red.Sonja.Queen.Of.Plagues.2016.BDRip.x264-W4F[PRiME]")));
-        assert_eq!(Some(String::from("The Purge: Election Year")), title(&String::from("The Purge: Election Year (2016) HC - 720p HDRiP - 900MB - ShAaNi")));
-        assert_eq!(Some(String::from("War Dogs")), title(&String::from("War Dogs (2016) HDTS 600MB - NBY")));
-        assert_eq!(Some(String::from("The Hateful Eight")), title(&String::from("The Hateful Eight (2015) 720p BluRay - x265 HEVC - 999MB - ShAaN")));
-        assert_eq!(Some(String::from("The Boss")), title(&String::from("The.Boss.2016.UNRATED.720p.BRRip.x264.AAC-ETRG")));
-        assert_eq!(Some(String::from("Return To Snowy River")), title(&String::from("Return.To.Snowy.River.1988.iNTERNAL.DVDRip.x264-W4F[PRiME]")));
-        assert_eq!(Some(String::from("Akira")), title(&String::from("Akira (2016) - UpScaled - 720p - DesiSCR-Rip - Hindi - x264 - AC3 - 5.1 - Mafiaking - M2Tv")));
-        assert_eq!(Some(String::from("Ben Hur")), title(&String::from("Ben Hur 2016 TELESYNC x264 AC3 MAXPRO")));
-        assert_eq!(Some(String::from("The Secret Life of Pets")), title(&String::from("The.Secret.Life.of.Pets.2016.HDRiP.AAC-LC.x264-LEGi0N")));
+        assert_eq!(Some(String::from("Community")),                       title(&String::from("Community.s02e20.rus.eng.720p.Kybik.v.Kybe")));
+        assert_eq!(Some(String::from("The Jungle Book")),                 title(&String::from("The.Jungle.Book.2016.3D.1080p.BRRip.SBS.x264.AAC-ETRG")));
+        assert_eq!(Some(String::from("Ant-Man")),                         title(&String::from("Ant-Man.2015.3D.1080p.BRRip.Half-SBS.x264.AAC-m2g")));
+        assert_eq!(Some(String::from("Ice Age Collision Course")),        title(&String::from("Ice.Age.Collision.Course.2016.READNFO.720p.HDRIP.X264.AC3.TiTAN")));
+        assert_eq!(Some(String::from("Red Sonja Queen Of Plagues")),      title(&String::from("Red.Sonja.Queen.Of.Plagues.2016.BDRip.x264-W4F[PRiME]")));
+        assert_eq!(Some(String::from("The Purge: Election Year")),        title(&String::from("The Purge: Election Year (2016) HC - 720p HDRiP - 900MB - ShAaNi")));
+        assert_eq!(Some(String::from("War Dogs")),                        title(&String::from("War Dogs (2016) HDTS 600MB - NBY")));
+        assert_eq!(Some(String::from("The Hateful Eight")),               title(&String::from("The Hateful Eight (2015) 720p BluRay - x265 HEVC - 999MB - ShAaN")));
+        assert_eq!(Some(String::from("The Boss")), t                      itle(&String::from("The.Boss.2016.UNRATED.720p.BRRip.x264.AAC-ETRG")));
+        assert_eq!(Some(String::from("Return To Snowy River")),           title(&String::from("Return.To.Snowy.River.1988.iNTERNAL.DVDRip.x264-W4F[PRiME]")));
+        assert_eq!(Some(String::from("Akira")),                           title(&String::from("Akira (2016) - UpScaled - 720p - DesiSCR-Rip - Hindi - x264 - AC3 - 5.1 - Mafiaking - M2Tv")));
+        assert_eq!(Some(String::from("Ben Hur")),                         title(&String::from("Ben Hur 2016 TELESYNC x264 AC3 MAXPRO")));
+        assert_eq!(Some(String::from("The Secret Life of Pets")),         title(&String::from("The.Secret.Life.of.Pets.2016.HDRiP.AAC-LC.x264-LEGi0N")));
     }
 
     #[test]
