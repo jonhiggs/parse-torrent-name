@@ -10,6 +10,13 @@ struct Cli {
     path: std::path::PathBuf,
 }
 
+fn spaceify(s: &str) -> Option<String> {
+    // if the string appears to have dots for spaces, swap them for spaces.
+    let re = Regex::new(r"\.").unwrap();
+    let after = re.replace_all(s, " ");
+    Some(after.to_string())
+}
+
 fn title(s: &str) -> Option<String> {
     let mut options = Vec::new();
 
@@ -40,6 +47,7 @@ fn title(s: &str) -> Option<String> {
     options.sort_by(|a, b| (a.chars().count()).cmp(&b.chars().count()));
 
     let o = options.remove(0);
+    let o = spaceify(&o).unwrap();
 
     Some(o)
 }
@@ -470,5 +478,12 @@ mod tests {
         assert_eq!(None,     episode(&String::from("Ice.Age.Collision.Course.2016.READNFO.720p.HDRIP.X264.AC3.TiTAN")));
         assert_eq!(None,     episode(&String::from("Red.Sonja.Queen.Of.Plagues.2016.BDRip.x264-W4F[PRiME]")));
         assert_eq!(None,     episode(&String::from("The.Jungle.Book.2016.3D.1080p.BRRip.SBS.x264.AAC-ETRG")));
+    }
+
+
+    #[test]
+    fn test_spaceify() {
+        assert_eq!(Some(String::from("a string")),  spaceify(&String::from("a.string")));
+        assert_eq!(Some(String::from("another string")),  spaceify(&String::from("another string")));
     }
 }
