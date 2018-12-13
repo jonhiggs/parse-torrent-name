@@ -87,6 +87,14 @@ fn title(s: &str) -> Option<String> {
         }
     }
 
+    {
+        // everything before (any stuff)
+        let re = Regex::new(r"(.*)[ \.]\(.+\)").unwrap();
+        for cap in re.captures_iter(&s) {
+            options.push(cap[1].to_string());
+        }
+    }
+
     options.sort_by(|a, b| (a.chars().count()).cmp(&b.chars().count()));
 
     let o = options.remove(0);
@@ -214,13 +222,13 @@ mod tests {
         assert_eq!(Some(String::from("Hercules")),                        title(&String::from("Hercules.2014.Extended.Cut.HDRip.XViD-juggs[ETRG]")));
         assert_eq!(Some(String::from("Hercules")),                        title(&String::from("Hercules (2014) WEBDL DVDRip XviD-MAX")));
         assert_eq!(Some(String::from("WWE Hell in a Cell")),              title(&String::from("WWE Hell in a Cell 2014 PPV WEB-DL x264-WD -={SPARROW}=-")));
-        //assert_eq!(Some(String::from("UFC")),                             title(&String::from("UFC.179.PPV.HDTV.x264-Ebi[rartv]")));
+        //assert_eq!(Some(String::from("UFC")),                           title(&String::from("UFC.179.PPV.HDTV.x264-Ebi[rartv]")));
         assert_eq!(Some(String::from("Marvels Agents of S H I E L D")),   title(&String::from("Marvels Agents of S H I E L D S02E05 HDTV x264-KILLERS [eztv]")));
         assert_eq!(Some(String::from("X-Men Days of Future Past")),       title(&String::from("X-Men.Days.of.Future.Past.2014.1080p.WEB-DL.DD5.1.H264-RARBG")));
         assert_eq!(Some(String::from("Guardians Of The Galaxy")),         title(&String::from("Guardians Of The Galaxy 2014 R6 720p HDCAM x264-JYK")));
-        assert_eq!(Some(String::from("Marvel's Agents of S H I E L D")), title(&String::from("Marvel's.Agents.of.S.H.I.E.L.D.S02E01.Shadows.1080p.WEB-DL.DD5.1")));
-        assert_eq!(Some(String::from("Marvels Agents of S.H.I.E.L.D.")), title(&String::from("Marvels Agents of S.H.I.E.L.D. S02E06 HDTV x264-KILLERS[ettv]")));
-        //assert_eq!(Some(String::from("Guardians of the Galaxy")), title(&String::from("Guardians of the Galaxy (CamRip / 2014)")));
+        assert_eq!(Some(String::from("Marvel's Agents of S H I E L D")),  title(&String::from("Marvel's.Agents.of.S.H.I.E.L.D.S02E01.Shadows.1080p.WEB-DL.DD5.1")));
+        assert_eq!(Some(String::from("Marvels Agents of S.H.I.E.L.D.")),  title(&String::from("Marvels Agents of S.H.I.E.L.D. S02E06 HDTV x264-KILLERS[ettv]")));
+        assert_eq!(Some(String::from("Guardians of the Galaxy")),         title(&String::from("Guardians of the Galaxy (CamRip / 2014)")));
         assert_eq!(Some(String::from("The Walking Dead")),                title(&String::from("The.Walking.Dead.S05E03.1080p.WEB-DL.DD5.1.H.264-Cyphanix[rartv]")));
         assert_eq!(Some(String::from("Brave")),                           title(&String::from("Brave.2012.R5.DVDRip.XViD.LiNE-UNiQUE")));
         assert_eq!(Some(String::from("Lets Be Cops")),                    title(&String::from("Lets.Be.Cops.2014.BRRip.XViD-juggs[ETRG]")));
