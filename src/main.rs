@@ -300,7 +300,7 @@ mod tests {
         assert_eq!(Some(String::from("The Purge: Election Year")),        title(&String::from("The Purge: Election Year (2016) HC - 720p HDRiP - 900MB - ShAaNi")));
         assert_eq!(Some(String::from("War Dogs")),                        title(&String::from("War Dogs (2016) HDTS 600MB - NBY")));
         assert_eq!(Some(String::from("The Hateful Eight")),               title(&String::from("The Hateful Eight (2015) 720p BluRay - x265 HEVC - 999MB - ShAaN")));
-        assert_eq!(Some(String::from("The Boss")), t                      itle(&String::from("The.Boss.2016.UNRATED.720p.BRRip.x264.AAC-ETRG")));
+        assert_eq!(Some(String::from("The Boss")),                        title(&String::from("The.Boss.2016.UNRATED.720p.BRRip.x264.AAC-ETRG")));
         assert_eq!(Some(String::from("Return To Snowy River")),           title(&String::from("Return.To.Snowy.River.1988.iNTERNAL.DVDRip.x264-W4F[PRiME]")));
         assert_eq!(Some(String::from("Akira")),                           title(&String::from("Akira (2016) - UpScaled - 720p - DesiSCR-Rip - Hindi - x264 - AC3 - 5.1 - Mafiaking - M2Tv")));
         assert_eq!(Some(String::from("Ben Hur")),                         title(&String::from("Ben Hur 2016 TELESYNC x264 AC3 MAXPRO")));
