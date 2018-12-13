@@ -40,6 +40,14 @@ fn title(s: &str) -> Option<String> {
     }
 
     {
+        // everything before 5x03
+        let re = Regex::new(r"(.*)[ \.]\dx\d\d").unwrap();
+        for cap in re.captures_iter(&s) {
+            options.push(cap[1].to_string());
+        }
+    }
+
+    {
         // everything before (2002)
         let re = Regex::new(r"(.*)[ \.]\(20\d\d\)").unwrap();
         for cap in re.captures_iter(&s) {
@@ -233,7 +241,7 @@ mod tests {
         assert_eq!(Some(String::from("Brave")),                           title(&String::from("Brave.2012.R5.DVDRip.XViD.LiNE-UNiQUE")));
         assert_eq!(Some(String::from("Lets Be Cops")),                    title(&String::from("Lets.Be.Cops.2014.BRRip.XViD-juggs[ETRG]")));
         assert_eq!(Some(String::from("These Final Hours")),               title(&String::from("These.Final.Hours.2013.WBBRip XViD")));
-        //assert_eq!(Some(String::from("Downton Abbey")), title(&String::from("Downton Abbey 5x06 HDTV x264-FoV [eztv]")));
+        assert_eq!(Some(String::from("Downton Abbey")), title(&String::from("Downton Abbey 5x06 HDTV x264-FoV [eztv]")));
         //assert_eq!(Some(String::from("Annebelle")), title(&String::from("Annabelle.2014.HC.HDRip.XViD.AC3-juggs[ETRG]")));
         assert_eq!(Some(String::from("Lucy")),                            title(&String::from("Lucy.2014.HC.HDRip.XViD-juggs[ETRG]")));
         assert_eq!(Some(String::from("The Flash")),                       title(&String::from("The Flash 2014 S01E04 HDTV x264-FUM[ettv]")));
