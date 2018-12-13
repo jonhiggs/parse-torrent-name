@@ -12,9 +12,20 @@ struct Cli {
 
 fn spaceify(s: &str) -> Option<String> {
     // if the string appears to have dots for spaces, swap them for spaces.
-    let re = Regex::new(r"\.").unwrap();
-    let after = re.replace_all(s, " ");
-    Some(after.to_string())
+    let re = Regex::new(r"^[^ ]*$").unwrap();
+    let mat = re.find(&s);
+
+    match mat {
+        Some(_dotstring) => {
+            let re = Regex::new(r"\.").unwrap();
+            let after = re.replace_all(&s, " ");
+            return Some(after.to_string());
+        }
+        None => {
+            return Some(s.to_string());
+        }
+    }
+
 }
 
 fn title(s: &str) -> Option<String> {
@@ -485,5 +496,6 @@ mod tests {
     fn test_spaceify() {
         assert_eq!(Some(String::from("a string")),  spaceify(&String::from("a.string")));
         assert_eq!(Some(String::from("another string")),  spaceify(&String::from("another string")));
+        assert_eq!(Some(String::from("a thing with d.o.t.s.")), spaceify(&String::from("a thing with d.o.t.s.")));
     }
 }
