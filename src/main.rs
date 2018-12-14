@@ -284,7 +284,7 @@ mod tests {
         assert_eq!(Some(String::from("Hercules")),                        title(&String::from("Hercules.2014.Extended.Cut.HDRip.XViD-juggs[ETRG]")));
         assert_eq!(Some(String::from("Hercules")),                        title(&String::from("Hercules (2014) WEBDL DVDRip XviD-MAX")));
         assert_eq!(Some(String::from("WWE Hell in a Cell")),              title(&String::from("WWE Hell in a Cell 2014 PPV WEB-DL x264-WD -={SPARROW}=-")));
-        //assert_eq!(Some(String::from("UFC")),                           title(&String::from("UFC.179.PPV.HDTV.x264-Ebi[rartv]")));
+        //assert_eq!(Some(String::from("UFC 179")),                         title(&String::from("UFC.179.PPV.HDTV.x264-Ebi[rartv]")));
         assert_eq!(Some(String::from("Marvels Agents of S H I E L D")),   title(&String::from("Marvels Agents of S H I E L D S02E05 HDTV x264-KILLERS [eztv]")));
         assert_eq!(Some(String::from("X-Men Days of Future Past")),       title(&String::from("X-Men.Days.of.Future.Past.2014.1080p.WEB-DL.DD5.1.H264-RARBG")));
         assert_eq!(Some(String::from("Guardians Of The Galaxy")),         title(&String::from("Guardians Of The Galaxy 2014 R6 720p HDCAM x264-JYK")));
@@ -317,8 +317,8 @@ mod tests {
         assert_eq!(Some(String::from("Lucy")),                            title(&String::from("Lucy 2014 Dual-Audio 720p WEBRip")));
         assert_eq!(Some(String::from("Into The Storm")),                  title(&String::from("Into The Storm 2014 1080p BRRip x264 DTS-JYK")));
         assert_eq!(Some(String::from("Sin City A Dame to Kill For")),     title(&String::from("Sin.City.A.Dame.to.Kill.For.2014.1080p.BluRay.x264-SPARKS")));
-        //assert_eq!(Some(String::from("")),                             title(&String::from("WWE Monday Night Raw 3rd Nov 2014 HDTV x264-Sir Paul")));
-        //assert_eq!(Some(String::from("")), title(&String::from("WWE Monday Night Raw 2014 11 10 WS PDTV x264-RKOFAN1990 -={SPARR")));
+        assert_eq!(Some(String::from("WWE Monday Night Raw 3rd Nov")),    title(&String::from("WWE Monday Night Raw 3rd Nov 2014 HDTV x264-Sir Paul")));
+        assert_eq!(Some(String::from("WWE Monday Night Raw")),            title(&String::from("WWE Monday Night Raw 2014 11 10 WS PDTV x264-RKOFAN1990 -={SPARR")));
         assert_eq!(Some(String::from("Jack And The Cuckoo-Clock Heart")), title(&String::from("Jack.And.The.Cuckoo-Clock.Heart.2013.BRRip XViD")));
         assert_eq!(Some(String::from("WWE Hell in a Cell")),              title(&String::from("WWE Hell in a Cell 2014 HDTV x264 SNHD")));
         assert_eq!(Some(String::from("Dracula Untold")),                  title(&String::from("Dracula.Untold.2014.TS.XViD.AC3.MrSeeN-SiMPLE")));
@@ -333,11 +333,11 @@ mod tests {
         assert_eq!(Some(String::from("Guardians of the Galaxy")),         title(&String::from("Guardians of the Galaxy (2014) Dual Audio DVDRip AVI")));
         assert_eq!(Some(String::from("Eliza Graves")),                    title(&String::from("Eliza Graves (2014) Dual Audio WEB-DL 720p MKV x264")));
         assert_eq!(Some(String::from("Sons of Anarchy")),                 title(&String::from("Sons.of.Anarchy.S01E03")));
-        //assert_eq!(Some(String::from("doctor who")), title(&String::from("doctor_who_2005.8x12.death_in_heaven.720p_hdtv_x264-fov")));
+        //assert_eq!(Some(String::from("doctor who")),                      title(&String::from("doctor_who_2005.8x12.death_in_heaven.720p_hdtv_x264-fov")));
         assert_eq!(Some(String::from("breaking bad")),                    title(&String::from("breaking.bad.s01e01.720p.bluray.x264-reward")));
-        assert_eq!(Some(String::from("Game of Thrones")), title(&String::from("Game of Thrones - 4x03 - Breaker of Chains")));
-        //assert_eq!(Some(String::from("")), title(&String::from("[720pMkv.Com]_sons.of.anarchy.s05e10.480p.BluRay.x264-GAnGSteR")));
-        //assert_eq!(Some(String::from("")), title(&String::from("[ www.Speed.cd ] -Sons.of.Anarchy.S07E07.720p.HDTV.X264-DIMENSION")));
+        assert_eq!(Some(String::from("Game of Thrones")),                 title(&String::from("Game of Thrones - 4x03 - Breaker of Chains")));
+        assert_eq!(Some(String::from("sons of anarchy")),                 title(&String::from("[720pMkv.Com]_sons.of.anarchy.s05e10.480p.BluRay.x264-GAnGSteR")));
+        assert_eq!(Some(String::from("Sons of Anarchy")),                 title(&String::from("[ www.Speed.cd ] -Sons.of.Anarchy.S07E07.720p.HDTV.X264-DIMENSION")));
         assert_eq!(Some(String::from("Community")),                       title(&String::from("Community.s02e20.rus.eng.720p.Kybik.v.Kybe")));
         assert_eq!(Some(String::from("The Jungle Book")),                 title(&String::from("The.Jungle.Book.2016.3D.1080p.BRRip.SBS.x264.AAC-ETRG")));
         assert_eq!(Some(String::from("Ant-Man")),                         title(&String::from("Ant-Man.2015.3D.1080p.BRRip.Half-SBS.x264.AAC-m2g")));
