@@ -63,7 +63,7 @@ fn strip_noise(input_string: &str) -> String {
     let s = re.replace(&s, "").to_string();
 
     // remove non-title chars from start of line
-    let re = Regex::new(r"^[ _.-] *").unwrap();
+    let re = Regex::new(r"^[ _.\-]*").unwrap();
     let s = re.replace(&s, "").to_string();
 
     // remove trailing dashes and spaces
@@ -609,5 +609,6 @@ mod tests {
         assert_eq!(String::from("thing"),               strip_noise(&String::from("[noise] thing")));
         assert_eq!(String::from("underscored_thing"),   strip_noise(&String::from("[noise]_underscored_thing")));
         assert_eq!(String::from("dotted_thing"),        strip_noise(&String::from("[noise].dotted_thing")));
+        assert_eq!(String::from("dashed-thing"),        strip_noise(&String::from("[noise].dashed-thing")));
     }
 }
