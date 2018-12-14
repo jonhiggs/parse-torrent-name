@@ -194,6 +194,15 @@ fn resolution(s: &str) -> Option<String> {
     None
 }
 
+fn size(s: &str) -> Option<String> {
+    let re = Regex::new(r"[^A-Za-z0-9](\d+MB)[^A-Za-z0-9]").unwrap();
+    for cap in re.captures_iter(&s) {
+        return Some(cap[1].to_string());
+    }
+
+    None
+}
+
 fn year(s: &str) -> Option<i16> {
     {
         // matches (20xx) or [20xx]
@@ -629,6 +638,14 @@ mod tests {
         assert_eq!(Some(String::from("1080p")),   resolution(&String::from("Hercules.2014.EXTENDED.1080p.WEB-DL.DD5.1.H264-RARBG")));
         assert_eq!(Some(String::from("720p")),    resolution(&String::from("22 Jump Street (2014) 720p BrRip x264 - YIFY")));
         assert_eq!(Some(String::from("720p")),    resolution(&String::from("The Walking Dead S05E03 720p HDTV x264-ASAP[ettv]")));
+    }
+
+    #[test]
+    fn test_size() {
+        assert_eq!(None,                          size(&String::from("The Walking Dead S05E03 720p HDTV x264-ASAP[ettv]")));
+        assert_eq!(Some(String::from("600MB")),   size(&String::from("War Dogs (2016) HDTS 600MB - NBY")));
+        assert_eq!(Some(String::from("900MB")),   size(&String::from("The Purge: Election Year (2016) HC - 720p HDRiP - 900MB - ShAaNi")));
+        assert_eq!(Some(String::from("999MB")),   size(&String::from("The Hateful Eight (2015) 720p BluRay - x265 HEVC - 999MB - ShAaN")));
     }
 
     #[test]
