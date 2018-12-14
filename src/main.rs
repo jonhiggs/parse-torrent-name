@@ -402,7 +402,7 @@ mod tests {
         assert_eq!(Some(2014),  year(&String::from("WWE Hell in a Cell 2014 HDTV x264 SNHD")));
         assert_eq!(Some(2014),  year(&String::from("Dracula.Untold.2014.TS.XViD.AC3.MrSeeN-SiMPLE")));
         assert_eq!(None,        year(&String::from("The Missing 1x01 Pilot HDTV x264-FoV [eztv]")));
-        //assert_eq!(Some(""),    year(&String::from("Doctor.Who.2005.8x11.Dark.Water.720p.HDTV.x264-FoV[rartv]")));
+        assert_eq!(Some(2005),  year(&String::from("Doctor.Who.2005.8x11.Dark.Water.720p.HDTV.x264-FoV[rartv]")));
         assert_eq!(None,        year(&String::from("Gotham.S01E07.Penguins.Umbrella.WEB-DL.x264.AAC")));
         assert_eq!(Some(2014),  year(&String::from("One Shot [2014] DVDRip XViD-ViCKY")));
         assert_eq!(Some(2014),  year(&String::from("The Shaukeens 2014 Hindi (1CD) DvDScr x264 AAC...Hon3y")));
