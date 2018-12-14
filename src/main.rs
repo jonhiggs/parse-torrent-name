@@ -55,6 +55,12 @@ fn spaceify(s: &str) -> String {
     "\'twas a weird string".to_string()
 }
 
+fn strip_noise(s: &str) -> String {
+    // remove trailing dashes and spaces
+    let re = Regex::new(r"[- ]+$").unwrap();
+    re.replace(s, "").to_string()
+}
+
 fn title(s: &str) -> Option<String> {
     let mut options = Vec::new();
 
@@ -141,6 +147,7 @@ fn title(s: &str) -> Option<String> {
     options.sort_by(|a, b| (a.chars().count()).cmp(&b.chars().count()));
 
     let o = options.remove(0);
+    let o = strip_noise(&o);
     let o = spaceify(&o);
 
     Some(o)
@@ -316,7 +323,7 @@ mod tests {
         assert_eq!(Some(String::from("Sons of Anarchy")),                 title(&String::from("Sons.of.Anarchy.S01E03")));
         //assert_eq!(Some(String::from("doctor who")), title(&String::from("doctor_who_2005.8x12.death_in_heaven.720p_hdtv_x264-fov")));
         assert_eq!(Some(String::from("breaking bad")),                    title(&String::from("breaking.bad.s01e01.720p.bluray.x264-reward")));
-        //assert_eq!(Some(String::from("Game of Thrones")), title(&String::from("Game of Thrones - 4x03 - Breaker of Chains")));
+        assert_eq!(Some(String::from("Game of Thrones")), title(&String::from("Game of Thrones - 4x03 - Breaker of Chains")));
         //assert_eq!(Some(String::from("")), title(&String::from("[720pMkv.Com]_sons.of.anarchy.s05e10.480p.BluRay.x264-GAnGSteR")));
         //assert_eq!(Some(String::from("")), title(&String::from("[ www.Speed.cd ] -Sons.of.Anarchy.S07E07.720p.HDTV.X264-DIMENSION")));
         assert_eq!(Some(String::from("Community")),                       title(&String::from("Community.s02e20.rus.eng.720p.Kybik.v.Kybe")));
@@ -581,5 +588,11 @@ mod tests {
         assert_eq!(String::from("another string"),  spaceify(&String::from("another string")));
         assert_eq!(String::from("a thing with d.o.t.s."), spaceify(&String::from("a thing with d.o.t.s.")));
         assert_eq!(String::from("string with underscores"),  spaceify(&String::from("string_with_underscores")));
+    }
+
+    #[test]
+    fn test_strip_noise() {
+        assert_eq!(String::from("word"),            strip_noise(&String::from("word")));
+        assert_eq!(String::from("trailing dash"),   strip_noise(&String::from("trailing dash -")));
     }
 }
