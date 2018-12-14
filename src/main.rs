@@ -443,14 +443,14 @@ mod tests {
         assert_eq!(Some(2015),  year(&String::from("Ant-Man.2015.3D.1080p.BRRip.Half-SBS.x264.AAC-m2g")));
         assert_eq!(Some(2016),  year(&String::from("Ice.Age.Collision.Course.2016.READNFO.720p.HDRIP.X264.AC3.TiTAN")));
         assert_eq!(Some(2016),  year(&String::from("Red.Sonja.Queen.Of.Plagues.2016.BDRip.x264-W4F[PRiME]")));
-        assert_eq!(Some(2016),    year(&String::from("The Purge: Election Year (2016) HC - 720p HDRiP - 900MB - ShAaNi")));
-        assert_eq!(Some(2016),    year(&String::from("War Dogs (2016) HDTS 600MB - NBY")));
-        assert_eq!(Some(2015),    year(&String::from("The Hateful Eight (2015) 720p BluRay - x265 HEVC - 999MB - ShAaN")));
-        assert_eq!(Some(2016),    year(&String::from("The.Boss.2016.UNRATED.720p.BRRip.x264.AAC-ETRG")));
-        assert_eq!(Some(1988),    year(&String::from("Return.To.Snowy.River.1988.iNTERNAL.DVDRip.x264-W4F[PRiME]")));
-        assert_eq!(Some(2016),    year(&String::from("Akira (2016) - UpScaled - 720p - DesiSCR-Rip - Hindi - x264 - AC3 - 5.1 - Mafiaking - M2Tv")));
-        assert_eq!(Some(2016),    year(&String::from("Ben Hur 2016 TELESYNC x264 AC3 MAXPRO")));
-        assert_eq!(Some(2016),    year(&String::from("The.Secret.Life.of.Pets.2016.HDRiP.AAC-LC.x264-LEGi0N")));
+        assert_eq!(Some(2016),  year(&String::from("The Purge: Election Year (2016) HC - 720p HDRiP - 900MB - ShAaNi")));
+        assert_eq!(Some(2016),  year(&String::from("War Dogs (2016) HDTS 600MB - NBY")));
+        assert_eq!(Some(2015),  year(&String::from("The Hateful Eight (2015) 720p BluRay - x265 HEVC - 999MB - ShAaN")));
+        assert_eq!(Some(2016),  year(&String::from("The.Boss.2016.UNRATED.720p.BRRip.x264.AAC-ETRG")));
+        assert_eq!(Some(1988),  year(&String::from("Return.To.Snowy.River.1988.iNTERNAL.DVDRip.x264-W4F[PRiME]")));
+        assert_eq!(Some(2016),  year(&String::from("Akira (2016) - UpScaled - 720p - DesiSCR-Rip - Hindi - x264 - AC3 - 5.1 - Mafiaking - M2Tv")));
+        assert_eq!(Some(2016),  year(&String::from("Ben Hur 2016 TELESYNC x264 AC3 MAXPRO")));
+        assert_eq!(Some(2016),  year(&String::from("The.Secret.Life.of.Pets.2016.HDRiP.AAC-LC.x264-LEGi0N")));
     }
 
     #[test]
