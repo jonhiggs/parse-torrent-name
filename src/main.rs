@@ -185,6 +185,15 @@ fn title(s: &str) -> Option<String> {
     Some(o)
 }
 
+fn resolution(s: &str) -> Option<String> {
+    let re = Regex::new(r"[^a-z0-9](480[pi]|720[pi]|1080[pi])[^a-z0-9]").unwrap();
+    for cap in re.captures_iter(&s) {
+        return Some(cap[1].to_string());
+    }
+
+    None
+}
+
 fn year(s: &str) -> Option<i16> {
     {
         // matches (20xx) or [20xx]
@@ -613,6 +622,14 @@ mod tests {
         assert_eq!(None,     episode(&String::from("The.Jungle.Book.2016.3D.1080p.BRRip.SBS.x264.AAC-ETRG")));
     }
 
+    #[test]
+    fn test_resolution() {
+        assert_eq!(None,                          resolution(&String::from("Dawn.of.the.Planet.of.the.Apes.2014.HDRip.XViD-EVO")));
+        assert_eq!(Some(String::from("1080p")),   resolution(&String::from("Hercules (2014) 1080p BrRip H264 - YIFY")));
+        assert_eq!(Some(String::from("1080p")),   resolution(&String::from("Hercules.2014.EXTENDED.1080p.WEB-DL.DD5.1.H264-RARBG")));
+        assert_eq!(Some(String::from("720p")),    resolution(&String::from("22 Jump Street (2014) 720p BrRip x264 - YIFY")));
+        assert_eq!(Some(String::from("720p")),    resolution(&String::from("The Walking Dead S05E03 720p HDTV x264-ASAP[ettv]")));
+    }
 
     #[test]
     fn test_spaceify() {
