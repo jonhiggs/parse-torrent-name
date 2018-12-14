@@ -205,6 +205,40 @@ fn size(s: &str) -> Option<String> {
     None
 }
 
+fn audio(s: &str) -> Option<String> {
+    let re = Regex::new(r"[^A-Za-z0-9](AAC(-LC)?[0-6\.]*)[^A-Za-z0-9]*").unwrap();
+    for cap in re.captures_iter(&s) {
+        let re = Regex::new(r"\.*$").unwrap();
+        return Some(re.replace(&cap[1], "").to_string());
+    }
+
+    let re = Regex::new(r"[^A-Za-z0-9](DD[0-6\.]*)[^A-Za-z0-9]*").unwrap();
+    for cap in re.captures_iter(&s) {
+        let re = Regex::new(r"\.*$").unwrap();
+        return Some(re.replace(&cap[1], "").to_string());
+    }
+
+    let re = Regex::new(r"[^A-Za-z0-9](AC3[0-6\.]*)[^A-Za-z0-9]*").unwrap();
+    for cap in re.captures_iter(&s) {
+        let re = Regex::new(r"\.*$").unwrap();
+        return Some(re.replace(&cap[1], "").to_string());
+    }
+
+    let re = Regex::new(r"[^A-Za-z0-9](MP3[0-6\.]*)[^A-Za-z0-9]*").unwrap();
+    for cap in re.captures_iter(&s) {
+        let re = Regex::new(r"\.*$").unwrap();
+        return Some(re.replace(&cap[1], "").to_string());
+    }
+
+    let re = Regex::new(r"[^A-Za-z0-9](Dual-Audio)[^A-Za-z0-9]*").unwrap();
+    for cap in re.captures_iter(&s) {
+        let re = Regex::new(r"\.*$").unwrap();
+        return Some(re.replace(&cap[1], "").to_string());
+    }
+
+    None
+}
+
 fn year(s: &str) -> Option<i16> {
     {
         // matches (20xx) or [20xx]
@@ -303,6 +337,7 @@ fn main() {
 
     let mut data = json::JsonValue::new_object();
 
+    data["audio"] =         audio(&file_name).into();
     data["episode"] =       episode(&file_name).into();
     data["resolution"] =    resolution(&file_name).into();
     data["season"] =        season(&file_name).into();
@@ -457,6 +492,24 @@ mod tests {
         assert_eq!(Some(String::from("600MB")),   size(&String::from("War Dogs (2016) HDTS 600MB - NBY")));
         assert_eq!(Some(String::from("900MB")),   size(&String::from("The Purge: Election Year (2016) HC - 720p HDRiP - 900MB - ShAaNi")));
         assert_eq!(Some(String::from("999MB")),   size(&String::from("The Hateful Eight (2015) 720p BluRay - x265 HEVC - 999MB - ShAaN")));
+    }
+
+    #[test]
+    fn test_audio() {
+        assert_eq!(Some(String::from("AAC")),       audio(&String::from("Gotham.S01E05.Viper.WEB-DL.x264.AAC")));
+        assert_eq!(Some(String::from("AAC2.0")),    audio(&String::from("Into.The.Storm.2014.1080p.WEB-DL.AAC2.0.H264-RARBG")));
+        assert_eq!(Some(String::from("AAC")),       audio(&String::from("The Shaukeens 2014 Hindi (1CD) DvDScr x264 AAC...Hon3y")));
+        assert_eq!(Some(String::from("AAC")),       audio(&String::from("Gotham.S01E07.Penguins.Umbrella.WEB-DL.x264.AAC")));
+        assert_eq!(Some(String::from("AAC")),       audio(&String::from("Interstellar (2014) CAM ENG x264 AAC-CPG")));
+        assert_eq!(Some(String::from("Dual-Audio")),audio(&String::from("Lucy 2014 Dual-Audio WEBRip 1400Mb")));
+        assert_eq!(Some(String::from("AAC-LC")),    audio(&String::from("The.Secret.Life.of.Pets.2016.HDRiP.AAC-LC.x264-LEGi0N")));
+        assert_eq!(Some(String::from("DD5.1")),     audio(&String::from("Hercules.2014.EXTENDED.1080p.WEB-DL.DD5.1.H264-RARBG")));
+        assert_eq!(Some(String::from("DD51")),      audio(&String::from("Dawn.Of.The.Planet.of.The.Apes.2014.1080p.WEB-DL.DD51.H264-RARBG")));
+        assert_eq!(Some(String::from("AC3")),       audio(&String::from("Annabelle.2014.HC.HDRip.XViD.AC3-juggs[ETRG]")));
+        assert_eq!(Some(String::from("AC3.5.1")),   audio(&String::from("Teenage.Mutant.Ninja.Turtles.2014.720p.HDRip.x264.AC3.5.1-RARBG")));
+        assert_eq!(Some(String::from("AC3")),       audio(&String::from("Akira (2016) - UpScaled - 720p - DesiSCR-Rip - Hindi - x264 - AC3 - 5.1 - Mafiaking - M2Tv")));
+        assert_eq!(Some(String::from("MP3")),       audio(&String::from("Teenage.Mutant.Ninja.Turtles.2014.HDRip.XviD.MP3-RARBG")));
+        assert_eq!(None,                            audio(&String::from("The Walking Dead S05E03 720p HDTV x264-ASAP[ettv]")));
     }
 
     #[test]
