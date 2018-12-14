@@ -73,6 +73,21 @@ fn strip_noise(input_string: &str) -> String {
     s
 }
 
+fn title_case(s: &str) -> String {
+    let words = s.split(" ");
+    let mut result: Vec<String> = vec![];
+    words.for_each(|w|
+        {
+            let mut v: Vec<char> = w.chars().collect();
+            v[0] = v[0].to_ascii_uppercase();
+            let s: String = v.into_iter().collect();
+            result.push(s);
+        }
+    );
+
+    result.join(" ")
+}
+
 fn title(s: &str) -> Option<String> {
     let mut options = Vec::new();
 
@@ -610,5 +625,11 @@ mod tests {
         assert_eq!(String::from("underscored_thing"),   strip_noise(&String::from("[noise]_underscored_thing")));
         assert_eq!(String::from("dotted_thing"),        strip_noise(&String::from("[noise].dotted_thing")));
         assert_eq!(String::from("dashed-thing"),        strip_noise(&String::from("[noise].dashed-thing")));
+    }
+
+    #[test]
+    fn test_title_case() {
+        assert_eq!(String::from("Word"),                title_case(&String::from("word")));
+        assert_eq!(String::from("Two Words"),           title_case(&String::from("two words")));
     }
 }
