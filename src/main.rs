@@ -55,10 +55,22 @@ fn spaceify(s: &str) -> String {
     "\'twas a weird string".to_string()
 }
 
-fn strip_noise(s: &str) -> String {
+fn strip_noise(input_string: &str) -> String {
+    let s = input_string;
+
+    // remove [stuff] from start of line
+    let re = Regex::new(r"^\[[^\]]*\]").unwrap();
+    let s = re.replace(&s, "").to_string();
+
+    // remove non-title chars from start of line
+    let re = Regex::new(r"^[ _.-] *").unwrap();
+    let s = re.replace(&s, "").to_string();
+
     // remove trailing dashes and spaces
     let re = Regex::new(r"[- ]+$").unwrap();
-    re.replace(s, "").to_string()
+    let s = re.replace(&s, "").to_string();
+
+    s
 }
 
 fn title(s: &str) -> Option<String> {
@@ -592,7 +604,10 @@ mod tests {
 
     #[test]
     fn test_strip_noise() {
-        assert_eq!(String::from("word"),            strip_noise(&String::from("word")));
-        assert_eq!(String::from("trailing dash"),   strip_noise(&String::from("trailing dash -")));
+        assert_eq!(String::from("word"),                strip_noise(&String::from("word")));
+        assert_eq!(String::from("trailing dash"),       strip_noise(&String::from("trailing dash -")));
+        assert_eq!(String::from("thing"),               strip_noise(&String::from("[noise] thing")));
+        assert_eq!(String::from("underscored_thing"),   strip_noise(&String::from("[noise]_underscored_thing")));
+        assert_eq!(String::from("dotted_thing"),        strip_noise(&String::from("[noise].dotted_thing")));
     }
 }
