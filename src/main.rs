@@ -1,6 +1,8 @@
 extern crate structopt;
 extern crate regex;
 
+extern crate json;
+
 use regex::Regex;
 use structopt::StructOpt;
 
@@ -299,11 +301,16 @@ fn main() {
     let args = Cli::from_args();
     let file_name = args.path.file_name().unwrap().to_str().unwrap();
 
-    //let title = title(&file_name);
-    let title = String::from("blah");
+    let mut data = json::JsonValue::new_object();
 
-    println!("Hello, {:?}", file_name);
-    println!("title: {:?}", title);
+    data["episode"] =       episode(&file_name).into();
+    data["resolution"] =    resolution(&file_name).into();
+    data["season"] =        season(&file_name).into();
+    data["size"] =          size(&file_name).into();
+    data["title"] =         title(&file_name).into();
+    data["year"] =          year(&file_name).into();
+
+    println!("{}", data.to_string());
 }
 
 
