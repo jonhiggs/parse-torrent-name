@@ -52,7 +52,7 @@ fn spaceify(s: &str) -> String {
         }
     }
 
-    "\'twas a weird string".to_string()
+    s.to_string()
 }
 
 fn strip_noise(input_string: &str) -> String {
