@@ -184,7 +184,7 @@ fn year(s: &str) -> Option<i16> {
 
     {
         // matches 20xx
-        let re = Regex::new(r"[ \.\(](20\d\d)[ \.\)]").unwrap();
+        let re = Regex::new(r"[_ \.\(](20\d\d)[ \.\)]").unwrap();
         for cap in re.captures_iter(&s) {
             return Some(cap[1].to_string().parse::<i16>().unwrap());
         };
@@ -192,7 +192,7 @@ fn year(s: &str) -> Option<i16> {
 
     {
         // matches 19xx
-        let re = Regex::new(r"[ \.\(](19\d\d)[ \.\)]").unwrap();
+        let re = Regex::new(r"[_ \.\(](19\d\d)[ \.\)]").unwrap();
         for cap in re.captures_iter(&s) {
             return Some(cap[1].to_string().parse::<i16>().unwrap());
         };
@@ -413,7 +413,7 @@ mod tests {
         assert_eq!(Some(2014),  year(&String::from("Eliza Graves (2014) Dual Audio WEB-DL 720p MKV x264")));
         assert_eq!(Some(2014),  year(&String::from("WWE Monday Night Raw 2014 11 10 WS PDTV x264-RKOFAN1990 -={SPARR")));
         assert_eq!(None,        year(&String::from("Sons.of.Anarchy.S01E03")));
-        //assert_eq!(Some(""),    year(&String::from("doctor_who_2005.8x12.death_in_heaven.720p_hdtv_x264-fov")));
+        assert_eq!(Some(2005),  year(&String::from("doctor_who_2005.8x12.death_in_heaven.720p_hdtv_x264-fov")));
         assert_eq!(None,        year(&String::from("breaking.bad.s01e01.720p.bluray.x264-reward")));
         assert_eq!(None,        year(&String::from("Game of Thrones - 4x03 - Breaker of Chains")));
         assert_eq!(None,        year(&String::from("[720pMkv.Com]_sons.of.anarchy.s05e10.480p.BluRay.x264-GAnGSteR")));
