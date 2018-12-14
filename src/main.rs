@@ -69,7 +69,7 @@ fn strip_noise(input_string: &str) -> String {
     let s = re.replace(&s, "").to_string();
 
     // remove trailing dashes and spaces
-    let re = Regex::new(r"[- ]+$").unwrap();
+    let re = Regex::new(r"[- \.]+$").unwrap();
     let s = re.replace(&s, "").to_string();
 
     s
@@ -471,6 +471,7 @@ mod tests {
     fn test_strip_noise() {
         assert_eq!(String::from("word"),                strip_noise(&String::from("word")));
         assert_eq!(String::from("trailing dash"),       strip_noise(&String::from("trailing dash -")));
+        assert_eq!(String::from("trailing dot"),        strip_noise(&String::from("trailing dot.")));
         assert_eq!(String::from("thing"),               strip_noise(&String::from("[noise] thing")));
         assert_eq!(String::from("underscored_thing"),   strip_noise(&String::from("[noise]_underscored_thing")));
         assert_eq!(String::from("dotted_thing"),        strip_noise(&String::from("[noise].dotted_thing")));
