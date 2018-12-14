@@ -239,6 +239,20 @@ fn audio(s: &str) -> Option<String> {
     None
 }
 
+fn codec(s: &str) -> Option<String> {
+    let re = Regex::new(r"([hxHX][\.]?26[45])").unwrap();
+    for cap in re.captures_iter(&s) {
+        return Some(cap[1].to_string());
+    }
+
+    let re = Regex::new(r"(XviD|XViD)").unwrap();
+    for cap in re.captures_iter(&s) {
+        return Some(cap[1].to_string());
+    }
+
+    None
+}
+
 fn year(s: &str) -> Option<i16> {
     {
         // matches (20xx) or [20xx]
@@ -338,6 +352,7 @@ fn main() {
     let mut data = json::JsonValue::new_object();
 
     data["audio"] =         audio(&file_name).into();
+    data["codec"] =         codec(&file_name).into();
     data["episode"] =       episode(&file_name).into();
     data["resolution"] =    resolution(&file_name).into();
     data["season"] =        season(&file_name).into();
@@ -511,6 +526,17 @@ mod tests {
         assert_eq!(Some(String::from("MP3")),       audio(&String::from("Teenage.Mutant.Ninja.Turtles.2014.HDRip.XviD.MP3-RARBG")));
         assert_eq!(None,                            audio(&String::from("The Walking Dead S05E03 720p HDTV x264-ASAP[ettv]")));
     }
+
+    #[test]
+    fn test_codec() {
+        assert_eq!(Some(String::from("x264")),      codec(&String::from("The Walking Dead S05E03 720p HDTV x264-ASAP[ettv]")));
+        assert_eq!(Some(String::from("H264")),      codec(&String::from("Hercules (2014) 1080p BrRip H264 - YIFY")));
+        assert_eq!(Some(String::from("x264")),      codec(&String::from("WWE Hell in a Cell 2014 PPV WEB-DL x264-WD -={SPARROW}=-")));
+        assert_eq!(Some(String::from("XviD")),      codec(&String::from("The Big Bang Theory S08E06 HDTV XviD-LOL [eztv]")));
+        assert_eq!(Some(String::from("XViD")),      codec(&String::from("Dawn.of.the.Planet.of.the.Apes.2014.HDRip.XViD-EVO")));
+        assert_eq!(None,                            codec(&String::from("Guardians of the Galaxy (CamRip / 2014)")));
+    }
+
 
     #[test]
     fn test_spaceify() {
