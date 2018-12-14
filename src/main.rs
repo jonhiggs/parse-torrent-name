@@ -10,22 +10,49 @@ struct Cli {
     path: std::path::PathBuf,
 }
 
-fn spaceify(s: &str) -> Option<String> {
-    // if the string appears to have dots for spaces, swap them for spaces.
-    let re = Regex::new(r"^[^ ]*$").unwrap();
-    let mat = re.find(&s);
+fn spaceify(s: &str) -> String {
+    {
+        // the string has spaces
+        let re = Regex::new(r" ").unwrap();
+        let mat = re.find(&s);
 
-    match mat {
-        Some(_dotstring) => {
-            let re = Regex::new(r"\.").unwrap();
-            let after = re.replace_all(&s, " ");
-            return Some(after.to_string());
-        }
-        None => {
-            return Some(s.to_string());
+        match mat {
+            Some(_xxx) => { return s.to_string() }
+            None => {}
         }
     }
 
+    {
+        // the string doesn't have underscores, replace dots with spaces.
+        let re = Regex::new(r"^[^_]+$").unwrap();
+        let mat = re.find(&s);
+
+        match mat {
+            Some(_dotstring) => {
+                let re = Regex::new(r"\.").unwrap();
+                let after = re.replace_all(&s, " ");
+                return after.to_string();
+            }
+            None => {}
+        }
+    }
+
+    {
+        // the string doesn't have dots, replace underscores with spaces.
+        let re = Regex::new(r"^[^\.]+$").unwrap();
+        let mat = re.find(&s);
+
+        match mat {
+            Some(_underscorestring) => {
+                let re = Regex::new(r"_").unwrap();
+                let after = re.replace_all(&s, " ");
+                return after.to_string();
+            }
+            None => {}
+        }
+    }
+
+    "\'twas a weird string".to_string()
 }
 
 fn title(s: &str) -> Option<String> {
@@ -114,7 +141,7 @@ fn title(s: &str) -> Option<String> {
     options.sort_by(|a, b| (a.chars().count()).cmp(&b.chars().count()));
 
     let o = options.remove(0);
-    let o = spaceify(&o).unwrap();
+    let o = spaceify(&o);
 
     Some(o)
 }
@@ -550,8 +577,9 @@ mod tests {
 
     #[test]
     fn test_spaceify() {
-        assert_eq!(Some(String::from("a string")),  spaceify(&String::from("a.string")));
-        assert_eq!(Some(String::from("another string")),  spaceify(&String::from("another string")));
-        assert_eq!(Some(String::from("a thing with d.o.t.s.")), spaceify(&String::from("a thing with d.o.t.s.")));
+        assert_eq!(String::from("a string"),  spaceify(&String::from("a.string")));
+        assert_eq!(String::from("another string"),  spaceify(&String::from("another string")));
+        assert_eq!(String::from("a thing with d.o.t.s."), spaceify(&String::from("a thing with d.o.t.s.")));
+        assert_eq!(String::from("string with underscores"),  spaceify(&String::from("string_with_underscores")));
     }
 }
